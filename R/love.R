@@ -1,43 +1,27 @@
 
 
-#' DE Grader
+#' DE-grade
+#'
+#' German grades start at 1 (the best) and descend to 5 in uneven increments:
+#' 1, 1.3, 1.7, 2, 2.3, 2.7, 3, 3.3, 3.7, 4, 5.
+#'
+#' This function assigns german grades to percentage grades.
+#'
 #'
 #' @param g grade from 0 to 100
-#'
 #' @return The corresponding 'German grade'
 #' @export
 #'
-#' German grades start at 1 (the best) and descend to 5 in uneven increments:
-#' 1, 1.3, 1.7, 2, 2.3, 2.7, 3, 3.3, 3. 7, 4 5.
-#'
-#' This function is a direct implementation of a Hertie's Excel macro.
-#'
 #' @examples
-#'   table(degrader(0:100))
+#'   table(degrade(0:100))
 #'
-degrader <- function(g){
-  v <- ifelse(g>95,1,
-              ifelse(g>90,1.3,
-                     ifelse(g>85,1.7,
-                            ifelse(g>80,2,
-                                   ifelse(g>75,2.3,
-                                          ifelse(g>70,2.7,
-                                                 ifelse(g>65,3,
-                                                        ifelse(g>60,3.3, 0))))))))
-  h <- ifelse(g<1,0,
-              ifelse(g<50,5,
-                     ifelse(g<56,4,
-                            ifelse(g<61,3.7,0))))
-  v + h
+degrade <- function(g){
+  th <- c(95, 90,  85,  80, 75,  70,  65, 60,  55,  50, 0)
+  de <- c(1,  1.3, 1.7, 2,  2.3, 2.7, 3,  3.3, 3.7, 4,  5)
+  sapply(g, function(x) de[min(which(x > th))])
 }
 
 #' Apply Hertie Love to a Grade Distribution
-#'
-#' @param r A vector of grades (0 to 100)
-#' @param plot whether to plot the new grades against pre-loved grades
-#'
-#' @return a vector of new grades (0 to 100), returned invisibly
-#' @export
 #'
 #' This function figures out which 2PL IRT model would give the
 #' required Hertie grade distribution, assuming if all questions
@@ -57,10 +41,18 @@ degrader <- function(g){
 #' questions are much too easy, or more likely, much too hard (relative to
 #' probable actual abilities).
 #'
+#' @param r A vector of grades (0 to 100)
+#' @param plot whether to plot the new grades against pre-loved grades
+#'
+#' @return a vector of new grades (0 to 100), returned invisibly
+#' @importFrom graphics abline
+#' @importFrom stats optim plogis quantile
+#' @export
+#'
 #' @examples
 #'   gr <- rbinom(25, prob = 0.66, size = 100)
 #'   newgr <- hertielove(gr)
-
+#'
 hertielove <- function(r, plot = FALSE){
   qprobs <- c(0.05, 0.5, 0.95)
   qreq <- c(0.70, 0.85, 0.95) # required quantiles for qprobs
