@@ -26,37 +26,37 @@ na.replace <- function(d, repl = "."){
 
 #' Apply Hertie Love to a Grade Distribution
 #'
-#' This function figures out which 2PL IRT model would give the
-#' required Hertie grade distribution, assuming if all questions
-#' share the same difficulty parameter (constrained to be positive).
+#' Students have raw grades in vector r on a 100 point scale.
+#' Rescale this to 0,1 and treat this new score p as the proportion of
+#' questions they answered correctly. The empirical distribution of p
+#' has the 0.05, 0.5, and 0.95 quantiles; label these q_1, q2, q3.
+#' Hertie suggests that q1 should be at 70, q2 should be at 85, and
+#' q3 should be at 95. Probably they are not.
 #'
-#' Hertie requires that (no more than) five percent of the class
-#' score below 70, (not more than) five percent of the class score
-#' above 95, and the class median grade is 85.
+#' Estimate student ability on a log-odds scale as l = log(p/(1-p)).
+#' If these estimates were from a 2PL IRT model in which the log odds of
+#' answering correctly was (a - d) b where a is ability, d difficulty,
+#' and b the specificity of every question.  Normally we would take the
+#' student scores, estimate the d and b parameters and infer a. To
+#' curve the student scores we will set a = l and choose d and b parameters
+#' to have the preferred quantiles noted above (the optimisation treats
+#' the sum of squared differences between the quantiles implied by a
+#' particular setting of d and b, and q1, q2, and q3.
 #'
-#' The function reports SSE: how close it got to fitting those constraints,
-#' alpha and beta, the back estimated IRT parameters, and a comparison table
-#' of the original grade statistics, the required statistics, and those
-#' statistics in the new grades
-#'
-#' The alpha parameter is probably of most interest as it represents the
-#' general level of question difficulty. Values far from zero indicate that
-#' questions are much too easy, or more likely, much too hard (relative to
-#' probable actual abilities).
+#' If plot is TRUE then various before and after comparisons are plotted.
+#' The second bar graph plots the implications for German grades of the
+#' curving. To apply a German grade transformation to any 1-100 grade
+#' distribution, use the `degrade` function.
 #'
 #' @param r A vector of grades, each from 1 to 100
 #' @param plot whether to plot the new grades against originals grades
 #'
 #' @return a vector of new grades, each from 1 to 100, returned invisibly
-#' @importFrom graphics abline
+#' @importFrom graphics abline barplot par
 #' @importFrom stats optim plogis quantile
 #' @export
 #'
 #' @examples
-#'   p <- rbeta(25, 6, 4)
-#'   ab <- qlogis(p)
-#'   qd <- qlogis() # ~0.7
-#'
 #'   gr <- rbinom(25, prob = 0.66, size = 100)
 #'   newgr <- hertielove(gr)
 #'

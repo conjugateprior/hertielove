@@ -3,6 +3,8 @@
 export(degrade)
 export(hertielove)
 importFrom(graphics,abline)
+importFrom(graphics,barplot)
+importFrom(graphics,par)
 importFrom(stats,optim)
 importFrom(stats,plogis)
 importFrom(stats,quantile)

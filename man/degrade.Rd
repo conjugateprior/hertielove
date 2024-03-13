@@ -7,7 +7,7 @@
 degrade(g)
 }
 \arguments{
-\item{g}{grade from 0 to 100}
+\item{g}{grade from 1 to 100}
 }
 \value{
 The corresponding 'German grade'
