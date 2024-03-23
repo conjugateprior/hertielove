@@ -2,7 +2,7 @@
 % Please edit documentation in R/love.R
 \name{degrade}
 \alias{degrade}
-\title{Make German Grades from Grades Out of 100}
+\title{Turn Percentages into German Grades}
 \usage{
 degrade(g)
 }

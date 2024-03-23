@@ -1,4 +1,4 @@
-#' Make German Grades from Grades Out of 100
+#' Turn Percentages into German Grades
 #'
 #' German grades start at 1 (the best) and descend to 5 in uneven increments:
 #' 1, 1.3, 1.7, 2, 2.3, 2.7, 3, 3.3, 3.7, 4, 5. If you have grades out of 100
@@ -29,7 +29,7 @@ na.replace <- function(d, repl = "."){
   d
 }
 
-#' Apply the Hertie Love to a Grade Distribution
+#' Apply that #HertieLove to a bunch of Percentage Grades
 #'
 #' Assume students have raw grades on a 100 point scale.
 #' Hertie wants the 0.05, 0.5, and 0.95 quantiles of the empirical

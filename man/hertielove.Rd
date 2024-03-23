@@ -2,7 +2,7 @@
 % Please edit documentation in R/love.R
 \name{hertielove}
 \alias{hertielove}
-\title{Apply the Hertie Love to a Grade Distribution}
+\title{Apply that #HertieLove to a bunch of Percentage Grades}
 \usage{
 hertielove(r, plot = FALSE)
 }
