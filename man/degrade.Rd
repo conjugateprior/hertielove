@@ -2,24 +2,29 @@
 % Please edit documentation in R/love.R
 \name{degrade}
 \alias{degrade}
-\title{DE-grade}
+\title{Make German Grades from Grades Out of 100}
 \usage{
 degrade(g)
 }
 \arguments{
-\item{g}{grade from 1 to 100}
+\item{g}{grade from a grade out of 100}
 }
 \value{
-The corresponding 'German grade'
+The corresponding 'German' grades
 }
 \description{
 German grades start at 1 (the best) and descend to 5 in uneven increments:
-1, 1.3, 1.7, 2, 2.3, 2.7, 3, 3.3, 3.7, 4, 5.
+1, 1.3, 1.7, 2, 2.3, 2.7, 3, 3.3, 3.7, 4, 5. If you have grades out of 100
+this function Germanizes them.
 }
 \details{
-This function assigns german grades to percentage grades.
+This function assigns german grades to percentage grades. It's loosely
+based on a nasty excel macro of unknown provenance whose correctness I
+take no  responsibility
+for. Fortunately it also doesn't matter much, because Hertie's
+grade submission spreadsheet does the calculation itself.
 }
 \examples{
-  table(degrade(0:100))
+  table(degrade(50:100))
 
 }

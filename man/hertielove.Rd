@@ -2,44 +2,58 @@
 % Please edit documentation in R/love.R
 \name{hertielove}
 \alias{hertielove}
-\title{Apply Hertie Love to a Grade Distribution}
+\title{Apply the Hertie Love to a Grade Distribution}
 \usage{
 hertielove(r, plot = FALSE)
 }
 \arguments{
-\item{r}{A vector of grades, each from 1 to 100}
+\item{r}{A vector of grades, each out of 100}
 
 \item{plot}{whether to plot the new grades against originals grades}
 }
 \value{
-a vector of new grades, each from 1 to 100, returned invisibly
+a vector of new grades, returned invisibly
 }
 \description{
-Students have raw grades in vector r on a 100 point scale.
-Rescale this to 0,1 and treat this new score p as the proportion of
-questions they answered correctly. The empirical distribution of p
-has the 0.05, 0.5, and 0.95 quantiles; label these q_1, q2, q3.
-Hertie suggests that q1 should be at 70, q2 should be at 85, and
-q3 should be at 95. Probably they are not.
+Assume students have raw grades on a 100 point scale.
+Hertie wants the 0.05, 0.5, and 0.95 quantiles of the empirical
+to be 70, 85, and 95 respectively. Probably they are not. Hence this
+function to make it so.
 }
 \details{
-Estimate student ability on a log-odds scale as l = log(p/(1-p)).
-If these estimates were from a 2PL IRT model in which the log odds of
-answering correctly was (a - d) b where a is ability, d difficulty,
-and b the specificity of every question.  Normally we would take the
-student scores, estimate the d and b parameters and infer a. To
-curve the student scores we will set a = l and choose d and b parameters
-to have the preferred quantiles noted above (the optimisation treats
-the sum of squared differences between the quantiles implied by a
-particular setting of d and b, and q1, q2, and q3.
+First, estimate student ability on a log-odds scale as
+\deqn{\hat{\theta} = \log(p/(1-p))}
+where \eqn{p = r/100}.
+
+Now consider the 2PL IRT model in which the expected raw score is
+answering correctly was
+\deqn{\text{E}[r] = 100 \cdot 1/(1+\exp(- (\theta - \alpha ) \beta))}
+where \eqn{\alpha} and  \eqn{\beta}
+are shared difficulty and specificity parameters.
+Now rather than estimating the model parameters from r,
+set \eqn{\theta = \hat{\theta}} and optimize  \eqn{\alpha} and  \eqn{\beta}
+so that the expected raw scores have Hertie's prefered quantile values.
+The expected raw scores under the fitted model are the new grades.
 
 If plot is TRUE then various before and after comparisons are plotted.
 The second bar graph plots the implications for German grades of the
 curving. To apply a German grade transformation to any 1-100 grade
 distribution, use the \code{degrade} function.
+
+After optimisation, the sum squared error (between new to desired grade
+quantiles) is reported, along with the difficulty and slope parameters of the
+IRT model, a quantile comparison to see how well we approximate Hertie's
+preferences, and a before-and-after table in 'German grades'.
+
+Limitations: This procedure runs better, that is the final distribution
+is smoother, if grades are decently variable, mostly over 50 and all less
+than 100. We could
+shrink a little to avoid end-effects, but it's seldom been worth the effort.
 }
 \examples{
   gr <- rbinom(25, prob = 0.66, size = 100)
+  gr
   newgr <- hertielove(gr)
+  newgr
 
 }
