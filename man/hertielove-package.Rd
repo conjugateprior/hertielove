@@ -3,7 +3,6 @@
 \docType{package}
 \name{hertielove-package}
 \alias{hertielove-package}
-\alias{_PACKAGE}
 \title{#HertieLove}
 \description{
 Spreads the #HertieLove over your grade and converts percentages into German grades.

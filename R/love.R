@@ -24,6 +24,17 @@ degrade <- function(g){
   sapply(g, function(x) de[min(which(x > th))])
 }
 
+#' Show a Percentage vs DE Grade Chart
+#'
+#' @return a data.frame of percentage grades from 50 and their
+#'         corresponding DE grade
+#' @export
+#'
+degradechart <- function(){
+  data.frame(perc = 50:100,
+             de = degrade(50:100))
+}
+
 na.replace <- function(d, repl = "."){
   d[is.na(d)] <- repl
   d
