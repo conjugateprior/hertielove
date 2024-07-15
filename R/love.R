@@ -16,10 +16,10 @@
 #' @export
 #'
 #' @examples
-#'   table(degrade(50:100))
+#'   data.frame(percent = 0:100, DE = degrade(0:100))
 #'
 degrade <- function(g){
-  th <- c(95, 90,  85,  80, 75,  70,  65, 60,  55,  50, -1)
+  th <- c(95, 90,  85,  80, 75,  70,  65, 60,  55,  49, -1)
   de <- c(1,  1.3, 1.7, 2,  2.3, 2.7, 3,  3.3, 3.7, 4,  5)
   sapply(g, function(x) de[min(which(x > th))])
 }

@@ -25,6 +25,6 @@ for. Fortunately it also doesn't matter much, because Hertie's
 grade submission spreadsheet does the calculation itself.
 }
 \examples{
-  table(degrade(50:100))
+  data.frame(percent = 0:100, DE = degrade(0:100))
 
 }

@@ -5,7 +5,7 @@
 \alias{hertielove-package}
 \title{#HertieLove}
 \description{
-Spreads the #HertieLove over your grade and converts percentages into German grades.
+Spreads the #HertieLove over your grade and converts percentages to German grades.
 }
 \author{
 \strong{Maintainer}: Will Lowe \email{lowe@hertie-school.org}

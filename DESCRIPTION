@@ -1,9 +1,9 @@
 Package: hertielove
 Title: Spread the #HertieLove Over Your Grades 
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person("Will", "Lowe", , "lowe@hertie-school.org", role = c("aut", "cre"))
-Description: Spreads the #HertieLove over your grade and converts percentages into German grades.
+Description: Spreads the #HertieLove over your grade and converts percentages to German grades.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
