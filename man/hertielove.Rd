@@ -4,12 +4,19 @@
 \alias{hertielove}
 \title{Apply that #HertieLove to a bunch of Percentage Grades}
 \usage{
-hertielove(r, plot = FALSE)
+hertielove(grades, newdata = NULL, plot = FALSE, round = TRUE, show = TRUE)
 }
 \arguments{
-\item{r}{A vector of grades, each out of 100}
+\item{grades}{A vector of grades, each out of 100}
+
+\item{newdata}{indices of cases that should not be used to fit parameters}
 
 \item{plot}{whether to plot the new grades against originals grades}
+
+\item{round}{whether to round to whole numbers the transformed grades}
+
+\item{show}{whether to print out the transformed grades in a form that
+can be pasted into a spreadsheet in addition to returning them}
 }
 \value{
 a vector of new grades, returned invisibly
